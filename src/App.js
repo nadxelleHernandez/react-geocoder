@@ -14,6 +14,8 @@ function App() {
     latitude: "",
   });
 
+  const [errorMsg, setErrorMsg] = useState("");
+
   const searchPlace = (placeName) => {
     const queryParams = {
       params: {
@@ -22,6 +24,7 @@ function App() {
         format: "json",
       },
     };
+
     return axios
       .get(kLocAPIurl, queryParams)
       .then((response) => {
@@ -30,10 +33,14 @@ function App() {
           longitude: response.data[0].lon,
           latitude: response.data[0].lat,
         };
+        setErrorMsg("");
         setCoordinates(newCoordinates);
       })
       .catch((error) => {
         console.log(error.response);
+        setErrorMsg(
+          `${error.response.data.error} Error: ${error.response.status} ${error.response.statusText}`
+        );
       });
   };
   return (
@@ -50,6 +57,9 @@ function App() {
             <li>Latitude: {coordinates.latitude}</li>
             <li>Longitude: {coordinates.longitude}</li>
           </ul>
+        </section>
+        <section className="error">
+          <p>{errorMsg}</p>
         </section>
       </main>
     </div>

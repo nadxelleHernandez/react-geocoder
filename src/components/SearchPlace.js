@@ -16,13 +16,13 @@ const SearchPlace = ({ onSubmitChange }) => {
   };
 
   return (
-    <form>
+    <form onSubmit={onFormSubmit}>
       <input
         name="searchInput"
         value={searchValue}
         onChange={onSearchChange}
       ></input>
-      <input type="submit" value="Search now!" onSubmit={onFormSubmit}></input>
+      <input type="submit" value="Search now!"></input>
     </form>
   );
 };
